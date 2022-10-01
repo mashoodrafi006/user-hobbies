@@ -1,5 +1,5 @@
 {
-    "name": "homeLike",
+    "name": "arive",
     "preferGlobal": true,
     "bin": "./bin/consoleCommands.js",
     "version": "1.0.0",
