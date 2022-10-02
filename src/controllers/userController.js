@@ -1,5 +1,6 @@
 import userService from "../services/userService";
 import { API_STATUS_CODES, RESPONSE_MESSAGES } from "../constants";
+import { USER_CREATED, USER_ALREADY_EXISTS, ERROR, USER_HOBBIES_SAVED, USER_HOBBIES, DELETE_USER_HOBBIES } from "../constants/response";
 const userController = {};
 
 userController.createUser = async (req, res) => {
@@ -7,13 +8,14 @@ userController.createUser = async (req, res) => {
         const { name } = req.body;
         const userId = await userService.createUser(name);
 
-        return res.json({ status: API_STATUS_CODES.SUCCESS, message: RESPONSE_MESSAGES.SUCCESS, userId });
+        console.log(userId);
+        return res.json(USER_CREATED(userId));
     } catch (error) {
         if (error.code === 11000) {
-            return res.json({ status: API_STATUS_CODES.DUPLICATE_ENTRY, message: RESPONSE_MESSAGES.REQUEST_FAILED, userId: null });
+            return res.json(USER_ALREADY_EXISTS());
         }
 
-        return res.json({ status: API_STATUS_CODES.INTENAL_SERVER_ERROR, message: RESPONSE_MESSAGES.REQUEST_FAILED, userId: null });
+        return res.json(ERROR);
     }
 }
 
@@ -23,9 +25,9 @@ userController.saveUserHobbies = async (req, res) => {
 
         await userService.saveUserHobbies({ userId, hobbieName, passionLevel, year });
 
-        return res.json({ status: API_STATUS_CODES.SUCCESS, message: RESPONSE_MESSAGES.SUCCESS, userId });
+        return res.json(USER_HOBBIES_SAVED());
     } catch (error) {
-        return res.json({ status: API_STATUS_CODES.INTENAL_SERVER_ERROR, message: RESPONSE_MESSAGES.REQUEST_FAILED, userId: null });
+        return res.json(ERROR);
     }
 }
 
@@ -34,9 +36,9 @@ userController.getUserHobbies = async (req, res) => {
         const { userId } = req.query;
         const hobbies = await userService.getUserHobbies(userId);
 
-        return res.json({ status: API_STATUS_CODES.SUCCESS, message: RESPONSE_MESSAGES.SUCCESS, hobbies });
+        return res.json(USER_HOBBIES(hobbies));
     } catch (error) {
-        return res.json({ status: API_STATUS_CODES.INTENAL_SERVER_ERROR, message: RESPONSE_MESSAGES.REQUEST_FAILED, userId: null });
+        return res.json(ERROR);
     }
 }
 
@@ -45,9 +47,9 @@ userController.deleteUserHobby = async (req, res) => {
         const { userId, hobbyId } = req.body;
         await userService.deleteUserHobby({ userId, hobbyId });
 
-        return res.json({ status: API_STATUS_CODES.SUCCESS, message: RESPONSE_MESSAGES.SUCCESS });
+        return res.json(DELETE_USER_HOBBIES());
     } catch (error) {
-        return res.json({ status: API_STATUS_CODES.INTENAL_SERVER_ERROR, message: RESPONSE_MESSAGES.REQUEST_FAILED, userId: null });
+        return res.json(ERROR);
     }
 }
 
