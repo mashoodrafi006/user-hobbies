@@ -1,6 +1,6 @@
-// import httpMocks from 'node-mocks-http';
-// import userFixture from '../../fixtures/user';
-// import userService from '../../../app/services/userService';
+import httpMocks from 'node-mocks-http';
+import userFixture from '../../fixtures/userFixture';
+import userService from '../../../services/userService';
 import userController from '../../../controllers/userController';
 
 describe('User controller', () => {
@@ -13,25 +13,26 @@ describe('User controller', () => {
         expect(functions).toContain('deleteUserHobby');
     });
 
-    // test('It should return status code 200 on sucessfult login', async () => {
-    //     const res = httpMocks.createResponse();
-    //     const req = httpMocks.createRequest({
-    //         method: 'POST',
-    //         url: '/api/login',
-    //         body: {
-    //             userName: 'Mashood Rafi',
-    //             password: '123123',
-    //         },
-    //     });
+    test('It should return status code 200 on sucessfult login', async () => {
+        const res = httpMocks.createResponse();
+        const req = httpMocks.createRequest({
+            method: 'POST',
+            url: '/api/register',
+            body: {
+                name: 'Mashood Rafi'
+            },
+        });
 
-    //     const getLoggedInUser = jest.spyOn(userService, 'loginUser');
-    //     const mockLoggedInUser = userFixture.returnLoggedInUser();
-    //     getLoggedInUser.mockReturnValue(mockLoggedInUser);
+        const getCreatedUser = jest.spyOn(userService, 'createUser');
+        const mockUser = userFixture.getCreatedUser();
+        getCreatedUser.mockReturnValue(mockUser);
 
-    //     const result = await userController.login(req, res);
-    //     const data = res._getJSONData();
-    //     expect(data.status).toBe(200);
-    //     expect(result.statusCode).toBe(200);
-    //     getLoggedInUser.mockRestore();
-    // });
+        const result = await userController.createUser(req, res);
+        const data = res._getJSONData();
+
+        expect(data.status).toBe(200);
+        expect(result.statusCode).toBe(200);
+        expect(data.userId).toBe("63399e93842644143dda61fa");
+        getCreatedUser.mockRestore();
+    });
 });

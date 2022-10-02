@@ -7,7 +7,6 @@ userController.createUser = async (req, res) => {
         const { name } = req.body;
         const userId = await userService.createUser(name);
 
-        console.log(userId);
         return res.json(USER_CREATED(userId));
     } catch (error) {
         if (error.code === 11000) {
