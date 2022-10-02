@@ -5,7 +5,7 @@ const router = express.Router({});
 
 router.post('/register', userHobbiesValidator.validateCreateUser, userController.createUser);
 router.post('/user/hobbies', userHobbiesValidator.validatePayloadForSavingUserHobbies, userController.saveUserHobbies);
-router.get('/user/hobbies', userController.getUserHobbies);
-router.delete('/user/hobbies', userController.deleteUserHobby);
+router.get('/user/hobbies', userHobbiesValidator.validateUserId, userController.getUserHobbies);
+router.delete('/user/hobbies', userHobbiesValidator.validateUserIdHobbyId, userController.deleteUserHobby);
 
 module.exports = router;
