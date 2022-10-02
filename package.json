@@ -46,6 +46,8 @@
         "node-mocks-http": "^1.8.1",
         "rimraf": "^3.0.0",
         "shortid": "^2.2.14",
+        "swagger-jsdoc": "^6.2.5",
+        "swagger-ui-express": "^4.5.0",
         "urlencode": "^1.1.0",
         "uuid": "^3.3.3",
         "validator": "^13.6.0",

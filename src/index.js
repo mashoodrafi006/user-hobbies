@@ -1,5 +1,6 @@
+import config from './config';
 const server = require('./server');
 
-server.listen(3002, () => {
-    console.log(`Server now listening at localhost: 3002`);
+server.listen(config.port, () => {
+    console.log(`Server now listening at localhost: ${config.port}`);
 });
