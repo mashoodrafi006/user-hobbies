@@ -17,4 +17,16 @@ userController.createUser = async (req, res) => {
     }
 }
 
+userController.saveUserHobbies = async (req, res) => {
+    try {
+        const { userId, hobbieName, passionLevel, year } = req.body;
+
+        await userService.saveUserHobbies({ userId, hobbieName, passionLevel, year });
+
+        return res.json({ status: API_STATUS_CODES.SUCCESS, message: RESPONSE_MESSAGES.SUCCESS, userId });
+    } catch (error) {
+        return res.json({ status: API_STATUS_CODES.INTENAL_SERVER_ERROR, message: RESPONSE_MESSAGES.REQUEST_FAILED, userId: null });
+    }
+}
+
 export default userController;
