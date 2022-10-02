@@ -1,5 +1,6 @@
 import userRepository from "../repositories/userRepository";
 import hobbiesService from "../services/hobbiesService";
+import userHobbiesFactory from "../factories/userHobbies";
 const userService = {};
 
 userService.createUser = async (name) => {
@@ -16,6 +17,17 @@ userService.saveUserHobbies = async (userHobbies) => {
         const hobbyId = await hobbiesService.createUserHobbies(userHobbies);
         await userRepository.saveHobbyReferenceInUser({ userId: userHobbies.userId, hobbyId: hobbyId });
 
+    } catch (error) {
+        throw error;
+    }
+}
+
+userService.getUserHobbies = async (userId) => {
+    try {
+        const userHobbies = await userRepository.getUserHobbies(userId);
+        const userHobbiesResponse = userHobbiesFactory.buildResponseForUserHobbies(userHobbies);
+
+        return userHobbiesResponse;
     } catch (error) {
         throw error;
     }

@@ -29,4 +29,15 @@ userController.saveUserHobbies = async (req, res) => {
     }
 }
 
+userController.getUserHobbies = async (req, res) => {
+    try {
+        const { userId } = req.query;
+        const hobbies = await userService.getUserHobbies(userId);
+
+        return res.json({ status: API_STATUS_CODES.SUCCESS, message: RESPONSE_MESSAGES.SUCCESS, hobbies });
+    } catch (error) {
+        return res.json({ status: API_STATUS_CODES.INTENAL_SERVER_ERROR, message: RESPONSE_MESSAGES.REQUEST_FAILED, userId: null });
+    }
+}
+
 export default userController;
