@@ -33,4 +33,12 @@ userService.getUserHobbies = async (userId) => {
     }
 }
 
+userService.deleteUserHobby = async (userHobbyToRemove) => {
+    try {
+        await userRepository.deleteUserHobby(userHobbyToRemove);
+    } catch (error) {
+        throw error;
+    }
+}
+
 export default userService;

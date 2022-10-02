@@ -40,4 +40,15 @@ userController.getUserHobbies = async (req, res) => {
     }
 }
 
+userController.deleteUserHobby = async (req, res) => {
+    try {
+        const { userId, hobbyId } = req.body;
+        await userService.deleteUserHobby({ userId, hobbyId });
+
+        return res.json({ status: API_STATUS_CODES.SUCCESS, message: RESPONSE_MESSAGES.SUCCESS });
+    } catch (error) {
+        return res.json({ status: API_STATUS_CODES.INTENAL_SERVER_ERROR, message: RESPONSE_MESSAGES.REQUEST_FAILED, userId: null });
+    }
+}
+
 export default userController;

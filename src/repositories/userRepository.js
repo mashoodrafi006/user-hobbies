@@ -37,4 +37,14 @@ userRepository.getUserHobbies = async (userId) => {
     }
 }
 
+userRepository.deleteUserHobby = async (userHobbyToRemove) => {
+    try {
+        if (mongoose.Types.ObjectId.isValid(userHobbyToRemove.userId) && mongoose.Types.ObjectId.isValid(userHobbyToRemove.hobbyId)) {
+            await userMongoModel.updateOne({ _id: userHobbyToRemove.userId }, { $pull: { hobbies: userHobbyToRemove.hobbyId } });
+        }
+    } catch (error) {
+        throw error;
+    }
+}
+
 export default userRepository;
