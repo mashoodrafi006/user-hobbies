@@ -1,5 +1,4 @@
 import userService from "../services/userService";
-import { API_STATUS_CODES, RESPONSE_MESSAGES } from "../constants";
 import { USER_CREATED, USER_ALREADY_EXISTS, ERROR, USER_HOBBIES_SAVED, USER_HOBBIES, DELETE_USER_HOBBIES } from "../constants/response";
 const userController = {};
 

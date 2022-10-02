@@ -5,7 +5,7 @@ export const ERROR = {
 export const INVALID_REQUEST = (message) => {
     return {
         status: 400,
-        message: 'Invalid request.',
+        message,
     }
 };
 export const SUCCESS = (message) => {
