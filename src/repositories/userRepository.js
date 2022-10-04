@@ -2,6 +2,10 @@ import userMongoModel from "../models/users";
 import mongoose from "mongoose";
 const userRepository = {}
 
+
+/**
+ * Create user.
+*/
 userRepository.createUser = async (name) => {
     try {
         const user = await userMongoModel.create({ name });
@@ -12,6 +16,9 @@ userRepository.createUser = async (name) => {
     }
 }
 
+/**
+ * Add reference of hobby with user.
+*/
 userRepository.saveHobbyReferenceInUser = async (userHobby) => {
     try {
 
@@ -22,6 +29,9 @@ userRepository.saveHobbyReferenceInUser = async (userHobby) => {
     }
 }
 
+/**
+ * Get all user hobbies.
+*/
 userRepository.getUserHobbies = async (userId) => {
     try {
         let userWithHobbies = [];
@@ -37,6 +47,9 @@ userRepository.getUserHobbies = async (userId) => {
     }
 }
 
+/**
+ * Check whether hobby name is already associated with user. 
+*/
 userRepository.getUserHobbyByName = async (hobbyDetails) => {
     try {
         let userWithHobbies = [];
@@ -53,6 +66,9 @@ userRepository.getUserHobbyByName = async (hobbyDetails) => {
     }
 }
 
+/**
+ * @description: Delete user hobby.
+*/
 userRepository.deleteUserHobby = async (userHobbyToRemove) => {
     try {
         if (mongoose.Types.ObjectId.isValid(userHobbyToRemove.userId) && mongoose.Types.ObjectId.isValid(userHobbyToRemove.hobbyId)) {
