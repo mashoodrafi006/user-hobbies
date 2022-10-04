@@ -37,6 +37,22 @@ userRepository.getUserHobbies = async (userId) => {
     }
 }
 
+userRepository.getUserHobbyByName = async (hobbyDetails) => {
+    try {
+        let userWithHobbies = [];
+        if (mongoose.Types.ObjectId.isValid(hobbyDetails.userId)) {
+            userWithHobbies = await userMongoModel.aggregate([
+                { $match: { _id: mongoose.Types.ObjectId(hobbyDetails.userId) } },
+                { $lookup: { from: "hobbies", localField: "hobbies", foreignField: "_id", as: "userHobbies" } },
+                { $match: { "userHobbies.name": { $in: [hobbyDetails.hobbieName] } } },
+            ]);
+        }
+        return userWithHobbies.length ? true : false;
+    } catch (error) {
+        throw error;
+    }
+}
+
 userRepository.deleteUserHobby = async (userHobbyToRemove) => {
     try {
         if (mongoose.Types.ObjectId.isValid(userHobbyToRemove.userId) && mongoose.Types.ObjectId.isValid(userHobbyToRemove.hobbyId)) {

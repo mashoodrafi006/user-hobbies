@@ -14,6 +14,11 @@ userService.createUser = async (name) => {
 
 userService.saveUserHobbies = async (userHobbies) => {
     try {
+        const userHobbyWithSameNameAlreadyExists = await userRepository.getUserHobbyByName(userHobbies);
+        if (userHobbyWithSameNameAlreadyExists) {
+            return;
+        }
+
         const hobbyId = await hobbiesService.createUserHobbies(userHobbies);
         await userRepository.saveHobbyReferenceInUser({ userId: userHobbies.userId, hobbyId: hobbyId });
 
