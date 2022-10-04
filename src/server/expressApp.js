@@ -4,6 +4,7 @@ const cors = require('cors');
 const bodyParser = require('body-parser');
 const swaggerUI = require("swagger-ui-express");
 const swaggerJsDoc = require("swagger-jsdoc");
+const { resolve } = require('path');
 const app = express();
 app.use(cors());
 app.use(express.static('public'));
@@ -24,7 +25,7 @@ const options = {
         info: {
             title: "Library API",
             version: "1.0.0",
-            description: "A simple Express Library API",
+            description: "A library to track user hobbies.",
         },
         servers: [
             {
@@ -32,7 +33,7 @@ const options = {
             },
         ],
     },
-    apis: [`/private/var/www/html/arive/src/routes/api.js`]
+    apis: [`${resolve('src/routes/api.js')}`]
 };
 
 const specs = swaggerJsDoc(options);

@@ -16,7 +16,7 @@ export const SUCCESS = (message) => {
 };
 export const USER_CREATED = (userId) => {
     return {
-        status: 200,
+        status: 201,
         message: "User created.",
         userId
     }
