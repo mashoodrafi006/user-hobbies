@@ -13,7 +13,7 @@ describe('User controller', () => {
         expect(functions).toContain('deleteUserHobby');
     });
 
-    test('It should return status code 200 on sucessfult login', async () => {
+    test('Create user testcase.', async () => {
         const res = httpMocks.createResponse();
         const req = httpMocks.createRequest({
             method: 'POST',
